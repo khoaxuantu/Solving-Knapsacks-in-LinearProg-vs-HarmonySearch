@@ -6,7 +6,7 @@
       ],
       "name": "x86-Debug",
       "includePath": [
-        "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\or-tools_VisualStudio2019-64bit_v9.3.10497",
+        "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\or-tools_VisualStudio2022-64bit_v9.3.10497",
         "${env.INCLUDE}",
         "${workspaceRoot}\\**"
       ],
