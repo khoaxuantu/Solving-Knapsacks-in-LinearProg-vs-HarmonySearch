@@ -1,10 +1,6 @@
 #include <iostream>
 #include <vector>
 
-#include "absl/flags/flag.h"
-#include "ortools/base/init_google.h"
-#include "ortools/base/logging.h"
-#include "ortools/base/logging_flags.h"
 #include "ortools/linear_solver/linear_solver.h"
 
 #define ITEMS_NUM 5
