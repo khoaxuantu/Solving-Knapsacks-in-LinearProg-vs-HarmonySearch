@@ -91,4 +91,5 @@ void LPsolving()
 int main()
 {
 	LPsolving();
+	return EXIT_SUCCESS;
 }
