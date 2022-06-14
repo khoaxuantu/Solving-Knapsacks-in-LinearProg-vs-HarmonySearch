@@ -18,3 +18,6 @@ the related features.
 
 ## List of Included Methods
 - [Linear Programming](/LinearProgramming)
+
+## List of Programming Language Used
+> Python
