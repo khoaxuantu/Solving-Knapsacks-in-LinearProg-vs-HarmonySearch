@@ -33,7 +33,8 @@ def main():
 
     '''Instantiate the solver'''
     # Using Google's open source linear programming solver (GLOP)
-    # For the item whose requirement cannot be duplicated, try using SCIP solver
+    # For the item whose requirement cannot be duplicated,
+    # or typical Mixed Integer Linear Programming, try using SCIP solver
     solver = pywraplp.Solver.CreateSolver("SCIP")
 
     '''Define the variables'''
@@ -78,6 +79,7 @@ def main():
         print("Objective value =", solver.Objective().Value())
         for i in range(data['num_vars']):
             if x[i].solution_value() != 0:
+                # Compute the final weight achieved
                 max_weight_achieve += (data['size'][i] * x[i].solution_value())
             print(x[i].name(), " = ", x[i].solution_value())
         print(f"Maximum weight reached: {max_weight_achieve}")
