@@ -8,7 +8,7 @@
 > https://developers.google.com/optimization/introduction/overview<br>
 
 ### Example used
-Given a N set of items with distinc value and weight. Find the maximum value that an W capacity can hold.
+Given a N set of items with distinct value and weight. Find the maximum value that an W capacity can hold.
 <br><br>
 <code>N = 5</code><br>
 <code>W = 250</code><br>
