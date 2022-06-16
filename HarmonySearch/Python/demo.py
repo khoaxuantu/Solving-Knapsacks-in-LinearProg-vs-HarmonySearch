@@ -1,34 +1,35 @@
 import random
 from multiprocessing import cpu_count
-import sys
 from pyharmonysearch import ObjectiveFunctionInterface, harmony_search
+import time
 
 
 class ObjectiveFunction(ObjectiveFunctionInterface):
     # Implement the objective function
     def __init__(self):
         # Set the bound of each item (or decision variable)
-        # For unlimited of duplicated items, you may use sys.maxsize for upper_bound
-        # inf = sys.maxsize
-        # self.upper_bound = [inf, inf, inf, inf, inf,
-        #                     inf, inf, inf, inf, inf]
-        self.upper_bound = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        # Upper bound is the limited duplicate item
+        # Lower bound is 0 for the item
+        # The limited amount of each item is required due to the stochastic property of the Harmony Search
+        nitem = 20
+        items_num = 10
         self.lower_bound = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.upper_bound = list(nitem for i in range(items_num))
 
         # Set value and size
         self.value = [55, 10, 47, 60, 15, 50, 68, 61, 75, 90]
         self.size = [95, 4, 60, 44, 23, 72, 80, 62, 55, 42]
 
-        # Max weight
-        self.max_weight = 269
+        # Maximum weight
+        self.max_weight = 1269
 
         # Declare decision variables
         self.variable = [True, True, True, True, True, True, True, True, True, True]
 
         # Define all hyper parameters
         self._maximize = True
-        self._max_imp = 2500
-        self._hms = 100
+        self._max_imp = 50000
+        self._hms = 11
         self._hmcr = 0.8
         self._par = 0.15
         self._mpap = 0.5
@@ -38,6 +39,8 @@ class ObjectiveFunction(ObjectiveFunctionInterface):
             Return the objective function value given a solution vector containing each decision variable.
             :param vector:
         '''
+        # Default constraint for the knapsack problem only consists of maximum weight
+        # You may need to update more constraints depends on the problems
         # Objective function and total weight
         obj = 0
         w = 0
@@ -78,9 +81,11 @@ class ObjectiveFunction(ObjectiveFunctionInterface):
     def get_max_imp(self):
         return self._max_imp
 
+    # Get harmony memory consider rate
     def get_hmcr(self):
         return self._hmcr
 
+    # Get harmony memory size
     def get_hms(self):
         return self._hms
 
@@ -90,6 +95,7 @@ class ObjectiveFunction(ObjectiveFunctionInterface):
     def get_mpap(self):
         return self._mpap
 
+    # Get pitch adjusting rate
     def get_par(self):
         return self._par
 
@@ -98,6 +104,7 @@ class ObjectiveFunction(ObjectiveFunctionInterface):
 
 
 if __name__ == '__main__':
+    start_time = time.time()
     obj_fun = ObjectiveFunction()
 
     # use number of logical CPUs
@@ -108,4 +115,5 @@ if __name__ == '__main__':
     results = harmony_search(obj_fun, num_processes, num_iterations)
     print('Elapsed time: %s\n'
           'Best harmony (Selected items): %s\n'
-          'Best fitness (Maximum value): %s' % (results.elapsed_time, results.best_harmony, results.best_fitness))
+          'Best fitness (Maximum value): %s\n' % (results.elapsed_time, results.best_harmony, results.best_fitness))
+    print("Time per iteration: %f milliseconds" % ((time.time() - start_time) * 1000 / obj_fun.get_max_imp()))
