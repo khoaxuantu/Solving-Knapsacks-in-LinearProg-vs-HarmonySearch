@@ -27,6 +27,8 @@ def data_model():
 
 
 def main():
+    start_time = time.time()
+
     '''Instantiate data'''
     data = data_model()
     max_weight_achieve = 0
@@ -35,16 +37,17 @@ def main():
     # Using Google's open source linear programming solver (GLOP)
     # For the item whose requirement cannot be duplicated,
     # or typical Mixed Integer Linear Programming, try using SCIP solver
-    solver = pywraplp.Solver.CreateSolver("SCIP")
+    solver = pywraplp.Solver.CreateSolver("GLOP")
 
     '''Define the variables'''
     # Limit of duplicate item
     # If unlimited: Use solver.infinity()
-    r = 3
+    r = 20
 
     x = {}
     for i in range(data['num_vars']):
-        x[i] = solver.IntVar(0.0, r, 'x[%i]' % i)
+        # Use IntVar() for Mixed Integer Linear Programming
+        x[i] = solver.NumVar(0.0, r, 'x[%i]' % i)
 
     print("Number of variables = ", solver.NumVariables())
     print(x)
@@ -89,8 +92,13 @@ def main():
     else:
         print("The problem does not have an optimal solution")
 
+    time_elapse = ((time.time() - start_time) * 1000)
+    print("--- %f milliseconds ---" % time_elapse)
+    print()
+    if solver.iterations() != 0:
+        print("Time per iteration: %f milliseconds" % (time_elapse / solver.iterations()))
+
 
 if __name__ == "__main__":
-    start_time = time.time()
+
     main()
-    print("--- %f milliseconds ---" % ((time.time() - start_time) * 1000))
