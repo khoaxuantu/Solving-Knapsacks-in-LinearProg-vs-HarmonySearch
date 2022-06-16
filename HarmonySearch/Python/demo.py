@@ -28,11 +28,11 @@ class ObjectiveFunction(ObjectiveFunctionInterface):
 
         # Define all hyper parameters
         self._maximize = True
-        self._max_imp = 50000
+        self._max_imp = 30000
         self._hms = 11
         self._hmcr = 0.8
         self._par = 0.15
-        self._mpap = 0.5
+        self._bw = 0.2
 
     def get_fitness(self, vector):
         '''
@@ -89,11 +89,9 @@ class ObjectiveFunction(ObjectiveFunctionInterface):
     def get_hms(self):
         return self._hms
 
-    def get_mpai(self):
-        return self._par
-
+    # Get the bandwidth
     def get_mpap(self):
-        return self._mpap
+        return self._bw
 
     # Get pitch adjusting rate
     def get_par(self):
@@ -113,7 +111,7 @@ if __name__ == '__main__':
     # each process does 5 iterations
     num_iterations = num_processes * 5
     results = harmony_search(obj_fun, num_processes, num_iterations)
-    print('Elapsed time: %s\n'
+    print('Elapsed time: %s seconds\n'
           'Best harmony (Selected items): %s\n'
           'Best fitness (Maximum value): %s\n' % (results.elapsed_time, results.best_harmony, results.best_fitness))
     print("Time per iteration: %f milliseconds" % ((time.time() - start_time) * 1000 / obj_fun.get_max_imp()))
