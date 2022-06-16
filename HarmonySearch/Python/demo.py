@@ -35,7 +35,7 @@ class ObjectiveFunction(ObjectiveFunctionInterface):
         # Define all hyper parameters
         self._maximize = True
         self._max_imp = 30000
-        self._hms = 11
+        self._hms = 1
         self._hmcr = 0.8
         self._par = 0.15
         self._bw = 0.2
@@ -120,12 +120,17 @@ if __name__ == '__main__':
     num_iterations = num_processes * 5
     results = harmony_search(obj_fun, num_processes, num_iterations)
 
+    total_weight, total_volume = 0, 0
     # Round the final decision variables
     list_items = results.best_harmony
-    for i in range(len(list_items)):
-        list_items[i] = round(list_items[i])
+    for x in range(len(list_items)):
+        list_items[x] = round(list_items[x])
+        total_weight += list_items[x] * obj_fun.size[0][x]
+        total_volume += list_items[x] * obj_fun.size[1][x]
 
     print('Elapsed time: %s seconds\n'
           'Best harmony (Selected items): %s\n'
           'Best fitness (Maximum value): %s\n' % (results.elapsed_time, list_items, results.best_fitness))
+    print(f"Weight: {total_weight}")
+    print(f"Volume: {total_volume}")
     print("Time per iteration: %f milliseconds" % ((time.time() - start_time) * 1000 / obj_fun.get_max_imp()))
