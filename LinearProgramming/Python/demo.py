@@ -18,7 +18,7 @@ def data_model():
         # 'num_constraints': 4
 
         'size': [95, 4, 60, 44, 23, 72, 80, 62, 55, 42],
-        'max_weight': 1269,
+        'max_weight': 1500,
         'value': [55, 10, 47, 60, 15, 50, 68, 61, 75, 90],
         'num_vars': 10,
         'num_constraints': 1

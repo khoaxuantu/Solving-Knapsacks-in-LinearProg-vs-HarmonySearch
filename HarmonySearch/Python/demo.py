@@ -21,7 +21,7 @@ class ObjectiveFunction(ObjectiveFunctionInterface):
         self.size = [95, 4, 60, 44, 23, 72, 80, 62, 55, 42]
 
         # Maximum weight
-        self.max_weight = 1269
+        self.max_weight = 1500
 
         # Declare decision variables
         self.variable = [True, True, True, True, True, True, True, True, True, True]
