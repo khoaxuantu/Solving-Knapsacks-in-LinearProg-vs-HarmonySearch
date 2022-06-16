@@ -17,11 +17,17 @@ class ObjectiveFunction(ObjectiveFunctionInterface):
         self.upper_bound = list(nitem for i in range(items_num))
 
         # Set value and size
-        self.value = [55, 10, 47, 60, 15, 50, 68, 61, 75, 90]
-        self.size = [95, 4, 60, 44, 23, 72, 80, 62, 55, 42]
+        self.value = [90, 36, 54, 108, 45, 18, 50, 80, 210, 150]
+        self.size = [
+            [10, 4, 6, 12, 5, 2, 7, 9, 18, 15],
+            [9, 3, 9, 10, 6, 2, 5, 6, 25, 12]
+        ]
 
         # Maximum weight
         self.max_weight = 1500
+
+        # Maximum volume
+        self.max_volume = 2500
 
         # Declare decision variables
         self.variable = [True, True, True, True, True, True, True, True, True, True]
@@ -44,12 +50,14 @@ class ObjectiveFunction(ObjectiveFunctionInterface):
         # Objective function and total weight
         obj = 0
         w = 0
+        v = 0
         for i in range(len(self.variable)):
-            w += vector[i] * self.size[i]
+            w += vector[i] * self.size[0][i]
+            v += vector[i] * self.size[1][i]
             obj += vector[i] * self.value[i]
 
         # Do not return value if the objective size is larger than max_weight
-        if w <= self.max_weight:
+        if w <= self.max_weight and v <= self.max_volume:
             return obj
         else:
             return 0
@@ -111,7 +119,13 @@ if __name__ == '__main__':
     # each process does 5 iterations
     num_iterations = num_processes * 5
     results = harmony_search(obj_fun, num_processes, num_iterations)
+
+    # Round the final decision variables
+    list_items = results.best_harmony
+    for i in range(len(list_items)):
+        list_items[i] = round(list_items[i])
+
     print('Elapsed time: %s seconds\n'
           'Best harmony (Selected items): %s\n'
-          'Best fitness (Maximum value): %s\n' % (results.elapsed_time, results.best_harmony, results.best_fitness))
+          'Best fitness (Maximum value): %s\n' % (results.elapsed_time, list_items, results.best_fitness))
     print("Time per iteration: %f milliseconds" % ((time.time() - start_time) * 1000 / obj_fun.get_max_imp()))
