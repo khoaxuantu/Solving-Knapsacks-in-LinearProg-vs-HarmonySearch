@@ -7,7 +7,7 @@
 > For the further instructions in setting up OR-Tools, please refer to its developer guides: <br>
 > https://developers.google.com/optimization/introduction/overview<br>
 
-### Example used
+### Example used (Archive)
 Given a N set of items with distinct value and weight. Find the maximum value that an W capacity can hold.
 <br><br>
 <code>N = 5</code><br>
