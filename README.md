@@ -54,3 +54,6 @@ The factory can provide at most 20 waiting-for-deliver similar crates at one del
 ## List of Programming Language Used
 > Python<br>
 > C++ (Demo pending)
+
+## Note
+> Check out my final report here -> [Final_report](/AdvancedAlgorithms_final_rp.pdf)
