@@ -47,7 +47,10 @@ class ObjectiveFunction(ObjectiveFunctionInterface):
         '''
         # Default constraint for the knapsack problem only consists of maximum weight
         # You may need to update more constraints depends on the problems
-        # Objective function and total weight
+        # Objective function and total capacity
+        # obj: objective value
+        # w: total weight
+        # v: total volume
         obj = 0
         w = 0
         v = 0
@@ -56,7 +59,7 @@ class ObjectiveFunction(ObjectiveFunctionInterface):
             v += vector[i] * self.size[1][i]
             obj += vector[i] * self.value[i]
 
-        # Do not return value if the objective size is larger than max_weight
+        # Do not return value if the objective size is larger than the maximum capacity
         if w <= self.max_weight and v <= self.max_volume:
             return obj
         else:
