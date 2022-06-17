@@ -6,7 +6,7 @@ try to find the best parameters to create an optimized system.
 
 ## About the demo
 ### Quick intro
-> I use a Python build-in library 
+> I use the Python build-in library 
 [pyHarmonySearch](https://pypi.python.org/pypi/pyHarmonySearch)
 as a tool for my implementation to solve this problem.<br><br>
 > To understand more about how the solver is implemented.
